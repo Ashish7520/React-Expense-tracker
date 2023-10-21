@@ -56,6 +56,7 @@ body {
   cursor: default;
   transition: transform 0.2s;
   font-size: 1.1rem;
+  margin-bottom: 1rem;
 }
 
 .custom:hover {

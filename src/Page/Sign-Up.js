@@ -1,8 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import classes from "./Sign-Up.module.css";
+import AuthContext from "../Store/AuthCtx";
+import { useHistory } from "react-router-dom";
 
 const SignUp = () => {
   const [isLogin, setIsLogin] = useState(false);
+  const AuthCtx = useContext(AuthContext);
+  const histor = useHistory();
 
   const inputEmailRef = useRef();
   const inputPasswordRef = useRef();
@@ -64,6 +68,8 @@ const SignUp = () => {
       }
 
       const data = await response.json();
+      AuthCtx.login(data.idToken);
+      histor.replace("/home");
       console.log(data);
     } catch (error) {
       alert(error.message);
@@ -93,6 +99,7 @@ const SignUp = () => {
         <div className={classes.custom} onClick={toglerHander}>
           {isLogin ? "New User - Signup" : "Existing User - Login"}
         </div>
+        <div>{isLogin ? "Forgot Password" : ""}</div>
       </form>
     </div>
   );
