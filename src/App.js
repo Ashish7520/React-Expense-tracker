@@ -4,10 +4,12 @@ import { Route } from "react-router-dom";
 import Expense from "./Page/Expense";
 import classes from "./App.module.css";
 import CompleteProfile from "./Page/CompleteProfile";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <div>
+      <Navbar />
       <main className={classes.main}>
         <Route path="/expense">
           <Expense />

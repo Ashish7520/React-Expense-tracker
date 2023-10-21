@@ -2,11 +2,31 @@ import classes from "./CompleteProfile.module.css";
 
 import git from "../Assets/github.png";
 import web from "../Assets/web.png";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 
 const CompleteProfile = (props) => {
   const inputNameRef = useRef();
   const inputUrlRef = useRef();
+
+  useEffect(async () => {
+    try {
+      const response = await fetch(
+        "https://expense-tracker-df0a0-default-rtdb.firebaseio.com/user.json"
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        const key = Object.keys(data);
+        console.log(key);
+      } else {
+        const err = await response.json();
+        throw new Error(err);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   const formHandler = async (e) => {
     e.preventDefault();
@@ -38,7 +58,7 @@ const CompleteProfile = (props) => {
         }
 
         const data = await response.json();
-        console.log(data);
+        localStorage.setItem("id", data.name);
       } catch (error) {
         console.log(error);
       }

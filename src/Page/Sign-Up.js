@@ -43,9 +43,11 @@ const SignUp = () => {
     let url;
 
     if (!isLogin) {
-      url = process.env.REACT_APP_SIGNUP;
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBoBXNkMGpAjlmbpsHLZ0Q0zTjUTJJe3QA";
     } else {
-      url = process.env.REACT_APP_LOGIN;
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBoBXNkMGpAjlmbpsHLZ0Q0zTjUTJJe3QA";
     }
 
     try {
@@ -69,7 +71,13 @@ const SignUp = () => {
 
       const data = await response.json();
       AuthCtx.login(data.idToken);
-      histor.replace("/expense");
+      if (isLogin) {
+        histor.replace("/expense");
+      } else {
+        alert("Sign Up Successfully");
+        setIsLogin(!isLogin);
+      }
+
       console.log(data);
     } catch (error) {
       alert(error.message);
