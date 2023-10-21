@@ -6,18 +6,16 @@ const Expense = (props) => {
   const userIdToken = localStorage.getItem("token");
 
   const emailVarificationHandler = async () => {
-    const verificationData = {
-      requestType: "VERIFY_EMAIL",
-      idToken: userIdToken,
-    };
-
     if (!isVarified) {
       try {
         const response = await fetch(
-          "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBoBXNkMGpAjlmbpsHLZ0Q0zTjUTJJe3QA",
+          "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBoBXNkMGpAjlmbpsHLZ0Q0zTjUTJJe3QA",
           {
             method: "POST",
-            body: JSON.stringify(verificationData),
+            body: JSON.stringify({
+              requestType: "VERIFY_EMAIL",
+              idToken: userIdToken,
+            }),
             headers: {
               "Content-type": "application/json",
             },

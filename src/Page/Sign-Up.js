@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 const SignUp = () => {
   const [isLogin, setIsLogin] = useState(false);
   const AuthCtx = useContext(AuthContext);
-  const histor = useHistory();
+  const history = useHistory();
 
   const inputEmailRef = useRef();
   const inputPasswordRef = useRef();
@@ -72,7 +72,7 @@ const SignUp = () => {
       const data = await response.json();
       AuthCtx.login(data.idToken);
       if (isLogin) {
-        histor.replace("/expense");
+        history.replace("/expense");
       } else {
         alert("Sign Up Successfully");
         setIsLogin(!isLogin);
@@ -93,6 +93,10 @@ const SignUp = () => {
     setIsLogin(!isLogin);
   };
 
+  const forgotPasswordHandler = () => {
+    history.replace("/forgot-password");
+  };
+
   return (
     <div>
       <form className={classes.formDiv} onSubmit={formHandler}>
@@ -107,7 +111,9 @@ const SignUp = () => {
         <div className={classes.custom} onClick={toglerHander}>
           {isLogin ? "New User - Signup" : "Existing User - Login"}
         </div>
-        <div>{isLogin ? "Forgot Password" : ""}</div>
+        <div onClick={forgotPasswordHandler}>
+          {isLogin ? "Forgot Password" : ""}
+        </div>
       </form>
     </div>
   );
