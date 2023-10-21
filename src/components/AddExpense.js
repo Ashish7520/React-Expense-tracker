@@ -6,18 +6,46 @@ const AddExpense = (props) => {
   const inputDesRef = useRef();
   const inputCatRef = useRef();
 
-  const formHandler = (e) => {
+  const formHandler = async (e) => {
     e.preventDefault();
 
     const enteredAmount = inputAmountRef.current.value;
     const enteredDescreption = inputDesRef.current.value;
     const enteredCatagory = inputCatRef.current.value;
 
-    props.expense({
-      Amount: enteredAmount,
-      Descreption: enteredDescreption,
-      Catagory: enteredCatagory,
-    });
+    try {
+      const response = await fetch(
+        "https://expense-tracker-df0a0-default-rtdb.firebaseio.com/expenses.json",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            Amount: enteredAmount,
+            Descreption: enteredDescreption,
+            Catagory: enteredCatagory,
+          }),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const err = response.json();
+        console.log(err);
+        throw new Error(err.message);
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      props.expense({
+        Amount: enteredAmount,
+        Descreption: enteredDescreption,
+        Catagory: enteredCatagory,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
 
     inputAmountRef.current.value = "";
     inputCatRef.current.value = "";

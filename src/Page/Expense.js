@@ -1,12 +1,34 @@
 import AddExpense from "../components/AddExpense";
 import classes from "./Expense.module.css";
 import { useHistory } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Expense = (props) => {
   const isVarified = localStorage.getItem("varified");
   const userIdToken = localStorage.getItem("token");
   const [expenses, setExpenses] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://expense-tracker-df0a0-default-rtdb.firebaseio.com/expenses.json"
+        );
+        if (!response.ok) {
+          const err = await response.json();
+          console.log(err);
+          throw new Error(err.message);
+        }
+        const data = await response.json();
+        const expense = Object.values(data);
+        setExpenses(expense);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    fetchData(); // Call the async function immediately
+  }, []);
 
   const emailVarificationHandler = async () => {
     if (!isVarified) {
