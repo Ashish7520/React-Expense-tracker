@@ -20,3 +20,8 @@
   border-bottom-width: 100vw;
   border-bottom: 2px solid black;
 }
+
+ul {
+  position: fixed;
+  top: 50%;
+}

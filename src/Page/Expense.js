@@ -1,9 +1,12 @@
+import AddExpense from "../components/AddExpense";
 import classes from "./Expense.module.css";
 import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 
 const Expense = (props) => {
   const isVarified = localStorage.getItem("varified");
   const userIdToken = localStorage.getItem("token");
+  const [expenses, setExpenses] = useState([]);
 
   const emailVarificationHandler = async () => {
     if (!isVarified) {
@@ -43,6 +46,13 @@ const Expense = (props) => {
     history.replace("/complete-profile");
   };
 
+  const expenseHandler = (newExpense) => {
+    console.log(newExpense, "inside expense ");
+    setExpenses((prevExpense) => {
+      return [...prevExpense, newExpense];
+    });
+  };
+
   return (
     <div className={classes.container}>
       <div className={classes.header}>Welcome to Expense Tracker</div>
@@ -52,6 +62,16 @@ const Expense = (props) => {
       <div onClick={emailVarificationHandler}>
         {isVarified ? "" : "Verify your email"}
       </div>
+      <AddExpense expense={expenseHandler} />
+      <ul>
+        {expenses.map((expense, index) => (
+          <li key={index}>
+            Amount: {expense.Amount}
+            Description: {expense.Descreption}
+            Category: {expense.Catagory}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
