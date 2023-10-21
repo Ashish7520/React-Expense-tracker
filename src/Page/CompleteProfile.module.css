@@ -1,0 +1,36 @@
+.quotes {
+  position: fixed;
+  top: 2.5rem;
+  left: 3rem;
+  display: block;
+  border-bottom-width: 100vw;
+  border-bottom: 2px solid black;
+}
+
+.completeProfile {
+  position: fixed;
+  top: 2.5rem;
+  right: 3rem;
+  display: block;
+  border-bottom-width: 100vw;
+  border-bottom: 2px solid black;
+}
+
+.title {
+  position: fixed;
+  top: 10rem;
+  font-size: 1.3rem;
+  font-weight: bolder;
+}
+
+form {
+  position: fixed;
+  top: 13rem;
+  left: 40%;
+  display: grid;
+  width: 30%;
+}
+
+img {
+  width: 20px;
+}

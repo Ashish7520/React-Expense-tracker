@@ -69,7 +69,7 @@ const SignUp = () => {
 
       const data = await response.json();
       AuthCtx.login(data.idToken);
-      histor.replace("/home");
+      histor.replace("/expense");
       console.log(data);
     } catch (error) {
       alert(error.message);

@@ -1,0 +1,22 @@
+.container {
+  border-bottom: 2px solid black;
+  width: 100%; /* Set the width to 100% to span the full display width */
+}
+
+.header {
+  position: fixed;
+  top: 2.5rem;
+  left: 3rem;
+  display: block;
+  border-bottom-width: 100vw;
+  border-bottom: 2px solid black;
+}
+
+.completeProfile {
+  position: fixed;
+  top: 2.5rem;
+  right: 3rem;
+  display: block;
+  border-bottom-width: 100vw;
+  border-bottom: 2px solid black;
+}

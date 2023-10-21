@@ -1,16 +1,22 @@
 import React from "react";
 import SignUp from "./Page/Sign-Up";
 import { Route } from "react-router-dom";
+import Expense from "./Page/Expense";
+import classes from "./App.module.css";
+import CompleteProfile from "./Page/CompleteProfile";
 
 function App() {
   return (
     <div>
-      <main>
-        <Route path="/home">
-          <h1>Hello Home</h1>
+      <main className={classes.main}>
+        <Route path="/expense">
+          <Expense />
         </Route>
         <Route path="/user">
           <SignUp />
+        </Route>
+        <Route path="/complete-profile">
+          <CompleteProfile />
         </Route>
       </main>
     </div>
