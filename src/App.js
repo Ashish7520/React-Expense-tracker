@@ -6,10 +6,15 @@ import classes from "./App.module.css";
 import CompleteProfile from "./Page/CompleteProfile";
 import Navbar from "./components/Navbar";
 import ForgotPassword from "./Page/ForgotPassword";
+import { useSelector } from "react-redux";
 
 function App() {
+  const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
+  console.log(isDarkTheme, "inside app js file");
+  const themestyle = isDarkTheme ? classes.darkStyles : classes.lightStyles;
+  console.log(themestyle);
   return (
-    <div>
+    <div className={themestyle}>
       <Navbar />
       <main className={classes.main}>
         <Route path="/expense">

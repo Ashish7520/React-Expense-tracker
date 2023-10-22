@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { expenseActions } from "../Store/expensesSlice";
+import { themeAction } from "../Store/theme";
 
 const Expense = (props) => {
   const isVarified = localStorage.getItem("varified");
@@ -87,6 +88,31 @@ const Expense = (props) => {
     });
   };
 
+  const changeThemeHandler = () => {
+    dispatch(themeAction.changeTheme());
+  };
+
+  function convertToCSV(expenses) {
+    const header = ["Amount", "Category", "Description"];
+    const csv = expenses.map((expense) => {
+      return [expense.Amount, expense.Catagory, expense.Descreption].join(",");
+    });
+    return [header.join(","), ...csv].join("\n");
+  }
+
+  // Function to trigger the download
+  const downloadHandler = (Expensedata) => {
+    console.log(Expensedata);
+    const csvContent = convertToCSV(Expensedata);
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "expenses.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className={classes.container}>
       <div className={classes.header}>Welcome to Expense Tracker</div>
@@ -97,6 +123,15 @@ const Expense = (props) => {
         {isVarified ? "" : "Verify your email"}
       </div>
       <AddExpense expense={expenseHandler} />
+      <button className={classes.btn1} onClick={changeThemeHandler}>
+        Change Theme
+      </button>
+      <button
+        onClick={() => downloadHandler(Expensedata)}
+        className={classes.btn2}
+      >
+        Download
+      </button>
       <ul>
         {Expensedata.map((expense, index) => (
           <li key={index}>
