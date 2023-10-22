@@ -1,29 +1,31 @@
-import React, { useState, useRef, useContext } from "react";
-import classes from "./Sign-Up.module.css";
-import AuthContext from "../Store/AuthCtx";
+import React, { useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../Store/Auth";
 import { useHistory } from "react-router-dom";
+import classes from "./Sign-Up.module.css";
 
 const SignUp = () => {
   const [isLogin, setIsLogin] = useState(false);
-  const AuthCtx = useContext(AuthContext);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const inputEmailRef = useRef();
   const inputPasswordRef = useRef();
 
+  const authState = useSelector((state) => state.auth);
+
   const isEmailValid = (email) => {
     const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const isValid = emailPattern.test(email);
     if (!isValid) {
-      alert("Enter Valid Email");
-    } else {
-      return isValid;
+      alert("Enter a valid email");
     }
+    return isValid;
   };
 
   const isPasswordValid = (password) => {
     if (password.length < 6) {
-      alert("Password Must be 6 character long");
+      alert("Password must be at least 6 characters long");
       return false;
     }
 
@@ -66,22 +68,23 @@ const SignUp = () => {
       if (!response.ok) {
         const err = await response.json();
         console.log(err.error.message);
-        throw new Error(err.error.message); // Throw the error message
+        throw new Error(err.error.message);
       }
 
       const data = await response.json();
-      AuthCtx.login(data.idToken);
+      dispatch(login({ token: data.idToken }));
+
       if (isLogin) {
         history.replace("/expense");
       } else {
-        alert("Sign Up Successfully");
+        alert("Sign Up Successful");
         setIsLogin(!isLogin);
       }
 
       console.log(data);
     } catch (error) {
       alert(error.message);
-      console.log(error.message); // Access the error message
+      console.log(error.message);
     }
 
     console.log(enteredEmail, enteredPassword);
@@ -89,7 +92,7 @@ const SignUp = () => {
     inputPasswordRef.current.value = "";
   };
 
-  const toglerHander = () => {
+  const toggleHandler = () => {
     setIsLogin(!isLogin);
   };
 
@@ -108,7 +111,7 @@ const SignUp = () => {
         <button type="submit" disabled={!isEmailValid || !isPasswordValid}>
           {isLogin ? "Login" : "SignUp"}
         </button>
-        <div className={classes.custom} onClick={toglerHander}>
+        <div className={classes.custom} onClick={toggleHandler}>
           {isLogin ? "New User - Signup" : "Existing User - Login"}
         </div>
         <div onClick={forgotPasswordHandler}>

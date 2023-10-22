@@ -1,10 +1,14 @@
 import classes from "./AddExpense.module.css";
 import React, { useRef } from "react";
+import { expenseActions } from "../Store/expensesSlice";
+import { useDispatch } from "react-redux";
 
 const AddExpense = (props) => {
   const inputAmountRef = useRef();
   const inputDesRef = useRef();
   const inputCatRef = useRef();
+
+  const dispatch = useDispatch();
 
   const formHandler = async (e) => {
     e.preventDefault();
@@ -38,11 +42,13 @@ const AddExpense = (props) => {
       const data = await response.json();
       console.log(data);
 
-      props.expense({
-        Amount: enteredAmount,
-        Descreption: enteredDescreption,
-        Catagory: enteredCatagory,
-      });
+      dispatch(
+        expenseActions.addExpense({
+          Amount: enteredAmount,
+          Descreption: enteredDescreption,
+          Catagory: enteredCatagory,
+        })
+      );
     } catch (error) {
       console.log(error.message);
     }
