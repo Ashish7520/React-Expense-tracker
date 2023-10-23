@@ -1,14 +1,10 @@
-.main {
-  width: 100%;
+.darkStyles {
+  background-color: #121212;
+  color: #ffffff;
   height: 100vh;
 }
 
-.isDarkTheme {
-  background-color: #333333;
+.darkStyles .navbar {
+  background-color: #333;
   color: #ffffff;
-}
-
-.lightStyles {
-  color: #333333;
-  background-color: #ffffff;
 }

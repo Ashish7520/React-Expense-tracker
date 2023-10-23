@@ -79,7 +79,7 @@ const CompleteProfile = (props) => {
       <div className={classes.quotes}>Winner never quit, Quitter never win</div>
       <div className={classes.completeProfile}>Complete your profile</div>
       <div className={classes.outerDiv}>
-        <div className={classes.title}> Contact details</div>
+        <div className={classes.title}>Contact details</div>
         <form onSubmit={formHandler}>
           <div>
             <img src={git} alt="git logo" />
@@ -88,10 +88,10 @@ const CompleteProfile = (props) => {
           </div>
           <div>
             <img src={web} alt="web logo" />
-            <label htmlFor="url"> Profile Url </label>
+            <label htmlFor="url">Profile Url</label>
             <input type="url" id="url" ref={inputUrlRef} />
           </div>
-          <button onClick={CancleBtnHandler}>Cancle</button>
+          <button onClick={CancleBtnHandler}>Cancel</button>
           <button type="submit">Update</button>
         </form>
       </div>

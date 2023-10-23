@@ -151,9 +151,7 @@ const Expense = (props) => {
       <ul>
         {Expensedata.map((expense, index) => (
           <li key={index}>
-            Amount: {expense.Amount}
-            Description: {expense.Descreption}
-            Category: {expense.Catagory}
+            {`Amount: ${expense.Amount}    Description: ${expense.Descreption}    Category: ${expense.Catagory}`}
             <button onClick={() => editHandler(expense)}>Edit</button>
             <button onClick={() => deleteHandler(expense)}>Delete</button>
           </li>

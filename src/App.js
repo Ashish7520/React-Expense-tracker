@@ -23,10 +23,11 @@ function App() {
 
   const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
   console.log(isDarkTheme, "inside app js file");
-  const themestyle = isDarkTheme ? classes.darkStyles : classes.lightStyles;
-  console.log(themestyle);
+
+  const themeClass = isDarkTheme ? classes.darkStyles : classes.lightStyles;
+
   return (
-    <div className={themestyle}>
+    <div className={`${classes.container} ${themeClass}`}>
       <Navbar />
       <main className={classes.main}>
         <Route path="/expense">

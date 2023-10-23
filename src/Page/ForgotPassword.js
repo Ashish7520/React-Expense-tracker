@@ -44,16 +44,20 @@ const ForgotPassword = (props) => {
     history.replace("/user");
   };
   return (
-    <>
-      <form onSubmit={formHandler}>
-        <label htmlFor="email">
-          Enter the email with which you have registered{" "}
-        </label>
-        <input id="email" type="email" ref={inputEmailRef} />
-        <button type="submit">Send link</button>
-        <div onClick={loginHandler}>Already user? Login</div>
-      </form>
-    </>
+    <div className={classes.centeredContainer}>
+      <div className={classes.card}>
+        <form onSubmit={formHandler}>
+          <p className={classes.label}>
+            Enter the email with which you have registered
+          </p>
+          <input id="email" type="email" ref={inputEmailRef} />
+          <button type="submit">Send Link</button>
+        </form>
+        <div className={classes.loginLink} onClick={loginHandler}>
+          Already a user? Login
+        </div>
+      </div>
+    </div>
   );
 };
 

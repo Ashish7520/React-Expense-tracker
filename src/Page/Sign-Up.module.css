@@ -1,65 +1,63 @@
-body {
+.centeredContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 0;
-  background: #f1f1f1;
 }
 
 .formDiv {
-  background: #fff; /* Form background color */
-  padding: 20px; /* Shadow effect */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 50px;
   text-align: center;
-  width: 32rem;
-  height: 32rem;
-  border-radius: 1rem;
-  box-shadow: rgb(13, 13, 13);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  height: 410px;
+  font-size: larger;
 }
 
 .heading {
-  color: rgb(63, 63, 230);
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 3rem;
-  margin-top: 1.5rem;
+  background-color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
 }
 
-.formDiv label,
-.formDiv input,
-.formDiv button {
+label {
+  background-color: #fff;
   display: block;
-  text-align: left;
-  margin-left: 1.5rem;
-  width: 85%;
-  height: 2.5rem;
-  border-radius: 5px;
-  border-color: rgb(19, 18, 18);
-  font-size: 1.1rem;
-  font-weight: 550;
+  margin-top: 10px;
 }
 
-.formDiv input {
-  margin-bottom: 2rem;
+input {
+  background-color: #fff;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 
-.formDiv button {
-  text-align: center;
-  margin-bottom: 2.5rem;
-  background-color: rgb(63, 63, 230);
-  border-color: white;
-  color: white;
-  border-radius: 1.1rem;
+button {
+  font-weight: bold;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .custom {
-  cursor: default;
-  transition: transform 0.2s;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-}
-
-.custom:hover {
+  background-color: #fff;
+  margin-top: 20px;
+  color: #007bff;
   cursor: pointer;
-  transform: scale(1.1);
 }

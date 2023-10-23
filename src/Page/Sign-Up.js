@@ -101,7 +101,7 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <div className={classes.centeredContainer}>
       <form className={classes.formDiv} onSubmit={formHandler}>
         <div className={classes.heading}>{isLogin ? "Login" : "SignUp"}</div>
         <label htmlFor="email">E-mail</label>
@@ -114,7 +114,7 @@ const SignUp = () => {
         <div className={classes.custom} onClick={toggleHandler}>
           {isLogin ? "New User - Signup" : "Existing User - Login"}
         </div>
-        <div onClick={forgotPasswordHandler}>
+        <div className={classes.custom} onClick={forgotPasswordHandler}>
           {isLogin ? "Forgot Password" : ""}
         </div>
       </form>

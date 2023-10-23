@@ -16,11 +16,11 @@ const Navbar = (props) => {
   };
 
   return (
-    <>
+    <div className={classes.navbarDiv}>
       <h3 onClick={logoutHandler} className={classes.top}>
         Logout
       </h3>
-    </>
+    </div>
   );
 };
 
