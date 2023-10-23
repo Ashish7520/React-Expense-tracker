@@ -17,46 +17,68 @@ const AddExpense = (props) => {
     const enteredDescreption = inputDesRef.current.value;
     const enteredCatagory = inputCatRef.current.value;
 
-    try {
-      const response = await fetch(
-        "https://expense-tracker-df0a0-default-rtdb.firebaseio.com/expenses.json",
-        {
-          method: "POST",
-          body: JSON.stringify({
+    if (props.onEdit) {
+      const updatedExpense = {
+        id: props.onEdit.id,
+        Amount: enteredAmount,
+        Descreption: enteredDescreption,
+        Catagory: enteredCatagory,
+      };
+      dispatch(expenseActions.editExpense(updatedExpense));
+    } else {
+      const id = Math.floor(Math.random() * 1000);
+      try {
+        // const response = await fetch(
+        //   "https://expense-tracker-df0a0-default-rtdb.firebaseio.com/expenses.json",
+        //   {
+        //     method: "POST",
+        //     body: JSON.stringify({
+        //       Amount: enteredAmount,
+        //       Descreption: enteredDescreption,
+        //       Catagory: enteredCatagory,
+        //       id: id,
+        //     }),
+        //     headers: {
+        //       "Content-type": "application/json",
+        //     },
+        //   }
+        // );
+
+        // if (!response.ok) {
+        //   const err = response.json();
+        //   console.log(err);
+        //   throw new Error(err.message);
+        // }
+
+        // const data = await response.json();
+        // console.log(data);
+
+        dispatch(
+          expenseActions.addExpense({
             Amount: enteredAmount,
             Descreption: enteredDescreption,
             Catagory: enteredCatagory,
-          }),
-          headers: {
-            "Content-type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const err = response.json();
-        console.log(err);
-        throw new Error(err.message);
+            id: id,
+          })
+        );
+      } catch (error) {
+        console.log(error.message);
       }
 
-      const data = await response.json();
-      console.log(data);
-
-      dispatch(
-        expenseActions.addExpense({
-          Amount: enteredAmount,
-          Descreption: enteredDescreption,
-          Catagory: enteredCatagory,
-        })
-      );
-    } catch (error) {
-      console.log(error.message);
+      inputAmountRef.current.value = "";
+      inputCatRef.current.value = "";
+      inputDesRef.current.value = "";
     }
-
     inputAmountRef.current.value = "";
     inputCatRef.current.value = "";
     inputDesRef.current.value = "";
   };
+
+  if (props.onEdit) {
+    inputAmountRef.current.value = props.onEdit.Amount;
+    inputCatRef.current.value = props.onEdit.Catagory;
+    inputDesRef.current.value = props.onEdit.Descreption;
+  }
   return (
     <>
       <form onSubmit={formHandler}>

@@ -12,6 +12,8 @@ const Expense = (props) => {
   const [expenses, setExpenses] = useState([]);
   const dispatch = useDispatch();
 
+  const [edit, setEdit] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -113,6 +115,16 @@ const Expense = (props) => {
     URL.revokeObjectURL(url);
   };
 
+  const editHandler = (expense) => {
+    setEdit(expense);
+    console.log(Expensedata);
+    console.log(expense);
+  };
+
+  const deleteHandler = (expense) => {
+    dispatch(expenseActions.deleteExpense(expense));
+  };
+
   return (
     <div className={classes.container}>
       <div className={classes.header}>Welcome to Expense Tracker</div>
@@ -122,22 +134,28 @@ const Expense = (props) => {
       <div onClick={emailVarificationHandler}>
         {isVarified ? "" : "Verify your email"}
       </div>
-      <AddExpense expense={expenseHandler} />
-      <button className={classes.btn1} onClick={changeThemeHandler}>
-        Change Theme
-      </button>
-      <button
-        onClick={() => downloadHandler(Expensedata)}
-        className={classes.btn2}
-      >
-        Download
-      </button>
+      <AddExpense expense={expenseHandler} onEdit={edit} />
+      {isPremium && (
+        <button className={classes.btn1} onClick={changeThemeHandler}>
+          Change Theme
+        </button>
+      )}
+      {isPremium && (
+        <button
+          onClick={() => downloadHandler(Expensedata)}
+          className={classes.btn2}
+        >
+          Download
+        </button>
+      )}
       <ul>
         {Expensedata.map((expense, index) => (
           <li key={index}>
             Amount: {expense.Amount}
             Description: {expense.Descreption}
             Category: {expense.Catagory}
+            <button onClick={() => editHandler(expense)}>Edit</button>
+            <button onClick={() => deleteHandler(expense)}>Delete</button>
           </li>
         ))}
       </ul>
